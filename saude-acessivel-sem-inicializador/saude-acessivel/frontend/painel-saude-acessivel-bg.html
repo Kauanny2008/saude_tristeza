@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Painel Saúde Acessível — Barra do Garças</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f5f6;--pn:#fff;--ink:#17232b;--mut:#566673;--ln:#d5dfe3;--mint:#0e7c6b;--blue:#2b6cb0;--warn:#b4521f;--tr:#dbe7ea;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17191f;--pn:#20232b;--ink:#e8edf4;--mut:#a6b0bf;--ln:#343b49;--mint:#61ddc5;--blue:#55a9ff;--warn:#ffa36b;--tr:#2f3644}}
+:root[data-theme="dark"]{--bg:#17191f;--pn:#20232b;--ink:#e8edf4;--mut:#a6b0bf;--ln:#343b49;--mint:#61ddc5;--blue:#55a9ff;--warn:#ffa36b;--tr:#2f3644}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px 48px}
+h1,h2{font-family:"Source Serif 4",Georgia,serif;margin:0}
+h1{font-size:1.9rem;line-height:1.2}
+h2{font-size:1.15rem;margin-bottom:12px}
+.sub{color:var(--mut);margin:4px 0 18px}
+.bar0{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:18px}
+select{font:inherit;color:var(--ink);background:var(--pn);border:2px solid var(--ln);border-radius:8px;padding:8px 12px;min-height:44px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:12px}
+.k,.p{background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:16px}
+.k b{display:block;font-family:"Source Serif 4",serif;font-size:2.1rem;line-height:1.1}
+.k span{color:var(--mut);font-size:.92rem}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:780px){.g{grid-template-columns:1fr}}
+.r{display:grid;grid-template-columns:150px 1fr 70px;gap:8px;align-items:center;margin:9px 0;font-size:.93rem}
+.t{background:var(--tr);height:16px;border-radius:8px;overflow:hidden;display:flex}
+.f{height:100%}
+.sc{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:520px;font-size:.93rem}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--ln)}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;border:1px solid currentColor;font-size:.82rem;font-weight:600}
+.ok{color:var(--mint)}.no{color:var(--warn)}
+ul{margin:0;padding-left:20px}li{margin:8px 0}
+.leg{color:var(--mut);font-size:.85rem;margin-top:8px}
+</style>
+</head>
+<body>
+<main>
+<h1>Painel Saúde Acessível — Barra do Garças</h1>
+<p class="sub">Visão geral das unidades, profissionais e campanhas de saúde.</p>
+<div class="bar0"><label>Unidade<br><select id="u"><option value="">Todas as unidades</option></select></label></div>
+<section class="kpis" id="kpis" aria-label="Indicadores"></section>
+<div class="g">
+ <section class="p"><h2>Tempo de espera por unidade</h2><div id="esp"></div><p class="leg">UPA 24h: triagem imediata, fora do cálculo.</p></section>
+ <section class="p"><h2>Profissionais por especialidade</h2><div id="prof"></div><p class="leg">Verde: disponível; laranja: indisponível.</p></section>
+</div>
+<section class="p" style="margin-bottom:12px"><h2>Campanhas</h2><div class="sc"><table id="camp"></table></div></section>
+<section class="p" style="margin-bottom:12px"><h2>Resumo por unidade</h2><div class="sc"><table id="un"></table></div></section>
+</main>
+<script>
+// nome, bairro, status, espera(min), lotação, nº serviços, aviso, distância
+const P=[['UBS Centro','Centro','aberto',15,'Moderada',6,0],['UBS Jd. Bandeirantes','Jd. Bandeirantes','aberto',25,'Alta',4,1],['UPA 24h','Setor Sul','urgencia',null,'Variável',6,0],['UBS Novo Horizonte','Novo Horizonte','aberto',10,'Baixa',5,0],['CEM','Centro','aberto',40,'Alta',6,1],['UBS Cohabam','Cohabam','aberto',12,'Baixa',4,0]];
+// especialidade, unidade, disponível
+const D=[['Clínico Geral','UBS Centro',1],['Pediatra','UBS Jd. Bandeirantes',1],['Dentista','UBS Centro',1],['Cardiologista','CEM',1],['Ginecologista','CEM',1],['Clínico Geral','UBS Novo Horizonte',0],['Pediatra','UBS Centro',1],['Dentista','UBS Jd. Bandeirantes',0],['Clínico Geral','UBS Cohabam',1],['Cardiologista','CEM',1],['Ginecologista','UBS Jd. Bandeirantes',1],['Dentista','UBS Novo Horizonte',1]];
+// campanha, fim (null = permanente)
+const C=[['Dengue 2026','2026-06-30'],['Vacinação contra Gripe 2026','2026-05-30'],['Multivacinação Infantil 2026','2026-06-26'],['Hepatite B — Adultos',null],['Vacina BCG Neonatal',null],['HPV 2026','2026-10-31']];
+const hoje=new Date(),br=d=>d.split('-').reverse().join('/');
+const col={Alta:'var(--warn)',Moderada:'var(--blue)',Baixa:'var(--mint)',Variável:'var(--mut)'};
+const sel=document.getElementById('u');P.forEach(p=>sel.add(new Option(p[0],p[0])));
+const vig=C.filter(c=>!c[1]||new Date(c[1]+'T23:59:59')>=hoje);
+const esp=P.filter(p=>p[3]!=null),media=esp.reduce((s,p)=>s+p[3],0)/esp.length;
+function render(){
+ const u=sel.value,d=D.filter(x=>!u||x[1]===u),on=d.filter(x=>x[2]).length;
+ document.getElementById('kpis').innerHTML=[
+  [P.length,'unidades na rede'],
+  [on+' de '+d.length,'disponíveis'+(u?' em '+u:'')],
+  [Math.round(media)+' min','espera média (sem UPA)'],
+  [vig.length+' de '+C.length,'campanhas vigentes hoje']
+ ].map(k=>`<div class="k"><b>${k[0]}</b><span>${k[1]}</span></div>`).join('');
+ document.getElementById('esp').innerHTML=esp.slice().sort((a,b)=>b[3]-a[3]).map(p=>`<div class="r"><span>${p[0]}</span><div class="t"><div class="f" style="width:${p[3]/40*100}%;background:${col[p[4]]}"></div></div><b>${p[3]} min</b></div><div class="leg" style="margin:-6px 0 0 158px">Lotação ${p[4].toLowerCase()}</div>`).join('');
+ const es=[...new Set(D.map(x=>x[0]))];
+ document.getElementById('prof').innerHTML=es.map(e=>{const l=d.filter(x=>x[0]===e),a=l.filter(x=>x[2]).length,n=l.length-a;
+  return `<div class="r"><span>${e}</span><div class="t">${a?`<div class="f" style="width:${a*25}%;background:var(--mint)"></div>`:''}${n?`<div class="f" style="width:${n*25}%;background:var(--warn)"></div>`:''}</div><b>${a}/${l.length}</b></div>`}).join('');
+ document.getElementById('camp').innerHTML='<tr><th>Campanha</th><th>Fim previsto</th><th>Situação real</th></tr>'+C.map(c=>{const v=vig.includes(c);return `<tr><td>${c[0]}</td><td>${c[1]?br(c[1]):'Permanente'}</td><td><span class="tag ${v?'ok':'no'}">${v?'Vigente':'Encerrada'}</span></td></tr>`}).join('');
+ document.getElementById('un').innerHTML='<tr><th>Unidade</th><th>Bairro</th><th>Espera</th><th>Lotação</th><th>Serviços</th><th>Profissionais</th></tr>'+P.map(p=>{const l=D.filter(x=>x[1]===p[0]);return `<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[3]?p[3]+' min':'Imediata'}</td><td>${p[4]}</td><td>${p[5]}</td><td>${l.filter(x=>x[2]).length} de ${l.length}</td></tr>`}).join('');
+}
+sel.onchange=render;render();
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿posto_id;servico
+1;Clínico Geral
+1;Pediatria
+1;Enfermagem
+1;Vacinação
+1;Curativos
+1;Pré-natal
+2;Clínico Geral
+2;Odontologia
+2;Vacinação
+2;Enfermagem
+3;Urgência/Emergência
+3;Raio-X
+3;Laboratório
+3;Observação
+3;Medicação
+3;Suturas
+4;Fisioterapia
+4;Clínico Geral
+4;Enfermagem
+4;Psicologia
+4;Vacinação
+5;Cardiologia
+5;Ginecologia
+5;Ortopedia
+5;Dermatologia
+5;Nutrição
+5;Serviço Social
+6;Clínico Geral
+6;Vacinação
+6;Enfermagem
+6;Pré-natal

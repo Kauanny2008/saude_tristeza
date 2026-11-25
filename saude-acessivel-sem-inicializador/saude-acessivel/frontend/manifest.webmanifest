@@ -1,0 +1,12 @@
+{
+  "name": "Saúde Acessível",
+  "short_name": "Saúde Acessível",
+  "description": "Encontre unidades, serviços e informações de saúde em Barra do Garças.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "icons": [{"src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}],
+  "background_color": "#11141b",
+  "theme_color": "#11141b"
+}

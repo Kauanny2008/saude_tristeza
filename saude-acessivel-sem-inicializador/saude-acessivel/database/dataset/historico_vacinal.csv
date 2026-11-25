@@ -1,0 +1,12 @@
+﻿vacina;data;posto;dose
+BCG;15/03/2000;Maternidade Municipal Barra do Garças;Dose única
+Hepatite B;15/03/2000;UBS Centro;1ª dose
+Pentavalente;10/05/2000;UBS Centro;1ª dose
+Tríplice Viral;20/03/2001;UBS Jd. Bandeirantes;1ª dose
+Febre Amarela;05/02/2020;UBS Centro;Dose única
+dT;12/08/2022;UBS Novo Horizonte;Reforço
+Covid-19;14/04/2021;Drive-thru Ginásio Municipal BG;1ª dose
+Covid-19;09/06/2021;Drive-thru Ginásio Municipal BG;2ª dose
+Covid-19 Bivalente;10/01/2023;UBS Centro;Dose de reforço
+Influenza 2025;22/04/2025;UBS Novo Horizonte;1× ao ano
+Influenza 2026;16/04/2026;UBS Centro;1× ao ano

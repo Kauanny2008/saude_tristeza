@@ -1,0 +1,14 @@
+{
+  "name": "saude-acessivel-api",
+  "version": "1.0.0",
+  "description": "API do projeto Saúde Acessível — Barra do Garças/MT",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node --env-file=env src/server.js",
+    "dev": "node --env-file=env --watch src/server.js",
+    "iniciar-banco": "node iniciar-banco.js"
+  },
+  "keywords": ["saude", "api", "sqlite"],
+  "license": "ISC",
+  "engines": { "node": ">=22.5" }
+}

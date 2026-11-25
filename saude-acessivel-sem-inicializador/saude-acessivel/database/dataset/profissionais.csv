@@ -1,0 +1,13 @@
+﻿nome;especialidade;categoria;horario;posto;disponivel
+Dr. Rodrigo Mendes;Clínico Geral;clinico;Seg–Sex: 8h–12h / 13h–17h;UBS Centro;1
+Dra. Ana Lima;Pediatra;pediatra;Seg/Qua/Sex: 14h–18h;UBS Jd. Bandeirantes;1
+Dr. Carlos Souza;Dentista;dentista;Seg–Sex: 8h–12h;UBS Centro;1
+Dra. Fernanda Costa;Cardiologista;cardio;Ter/Qui: 9h–12h;CEM;1
+Dra. Patrícia Rocha;Ginecologista;gineco;Ter/Qui: 7h–12h;CEM;1
+Dr. Leonardo Faria;Clínico Geral;clinico;Seg–Sex: 13h–18h;UBS Novo Horizonte;0
+Dra. Juliana Torres;Pediatra;pediatra;Seg/Qua/Sex: 8h–12h;UBS Centro;1
+Dr. Marcos Vieira;Dentista;dentista;Ter/Qui/Sex: 8h–12h;UBS Jd. Bandeirantes;0
+Dra. Simone Alves;Clínica Geral;clinico;Seg–Sex: 7h–11h;UBS Cohabam;1
+Dr. Thiago Batista;Cardiologista;cardio;Seg/Qua: 9h–13h;CEM;1
+Dra. Camila Nunes;Ginecologista;gineco;Seg/Qua/Sex: 13h–17h;UBS Jd. Bandeirantes;1
+Dr. Eduardo Pires;Dentista;dentista;Seg–Sex: 13h–17h;UBS Novo Horizonte;1

@@ -1,0 +1,2 @@
+# copie este arquivo para .env se quiser mudar a porta
+PORT=3000
